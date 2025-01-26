@@ -15,10 +15,19 @@
 //           n: The size of the array.
 // Returns: A boolean value: True on success, false otherwise.
 bool sort_array(int *arr, int n){
-
-    // Write your code here
-
-    return false;
+    int temp = 0;
+    if(n >= 2){
+        for(int j=0; j < n; j++){
+            for(int i=0; i<n-1; i++){
+                if(arr[i] > arr[i+1]){                    
+                    temp = arr[i+1];
+                    arr[i+1] = arr[i];
+                    arr[i] = temp;
+                }
+            }  
+        }
+        return true;
+    }
 }
 
 // Main function
