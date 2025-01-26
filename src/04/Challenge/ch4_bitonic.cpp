@@ -19,17 +19,32 @@
 //           v: A reference to the vector to analyze.
 // Returns: A boolean value: True for bitonic sequences, false otherwise.
 bool is_bitonic(const std::vector<int> &v){
+    int up_counter =0, down_counter=0, equal_counter=0, invalid_counter=0;
+    for(int i=1; i < v.size();i++){
+        if( ((v[i-1] > v[i]) and (v[i] < v[i+1])) or ((v[i-1] < v[i]) and (v[i] > v[i+1])) ){
+            std::cout << v[i-1] << " " << v[i] << " " << v[i+1] << std::endl;
+            invalid_counter++;
+        }                        
     
-    // Write your code here
+        if(v[i-1] > v[i])
+            down_counter++;            
+        else if(v[i-1] < v[i])
+            up_counter++;
+        else
+            equal_counter++;
+    }
 
-    return false;
+    if((invalid_counter > up_counter or invalid_counter > down_counter) and (invalid_counter > equal_counter)) return false;
+    // if(invalid_counter >= (v.size()-1)/2) return false;
+    else return true;
+
 }
 
 // Main function
 int main(){
     // Uncomment one of these lines and make sure you get the result at the right. 
     
-    std::vector<int> myvec = {1, 2, 5, 4, 3};  // Yes
+     std::vector<int> myvec = {1, 2, 5, 4, 3};  // Yes
     // std::vector<int> myvec = {1, 1, 1, 1, 1};  // Yes
     // std::vector<int> myvec = {3, 4, 5, 2, 2};  // Yes
     // std::vector<int> myvec = {3, 4, 5, 2, 4};  // No
