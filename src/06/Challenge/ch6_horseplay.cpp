@@ -17,19 +17,11 @@
 // Returns: An STL vector of strings with the possible locations to move.
 std::vector<std::string> knight_moves(std::string knight){
     std::vector<std::string> moves;
-    std::vector<std::string> cell_positions;
     int cp_one,cp_two; // Use to get and convert the cell name
     int kbpo, kbpt; // kbpo - knight begin position one | kbpo - knight begin position two
 
-    // Display chess board cell positions as a Matrix
+    // Show chess board column characters as an array
     char column_character[8] = {'a','b','c','d','e','f','g','h'};
-    for(int i=8; i > 0; i--){
-        for(int j=0; j < 8; j++){
-            //std::cout << j << i << " ";
-            cell_positions.push_back(std::to_string(j) + std::to_string(i));
-        }
-        //std::cout << std::endl;
-    }
 
     // Get the knight current position and saved in two variables     
     for(int i=0; i < 8; i++){
@@ -56,40 +48,6 @@ std::vector<std::string> knight_moves(std::string knight){
         }
     }    
 
-    // for vertical > horizontal movement
-    // cp_one = kbpo-1; cp_two = kbpt+2;
-    // if(cp_one >=0 and cp_one < 8 and cp_two >0 and cp_two < 9)
-    //     moves.push_back(std::to_string(cp_one) + std::to_string(cp_two));
-
-    // cp_one = kbpo+1; cp_two = kbpt+2;
-    // if(cp_one >=0 and cp_one < 8 and cp_two >0 and cp_two < 9)
-    //     moves.push_back(std::to_string(cp_one) + std::to_string(cp_two));
-
-    // cp_one = kbpo-1; cp_two = kbpt-2;
-    // if(cp_one >=0 and cp_one < 8 and cp_two >0 and cp_two < 9)  
-    //     moves.push_back(std::to_string(cp_one) + std::to_string(cp_two));
-
-    // cp_one = kbpo+1; cp_two = kbpt-2;
-    // if(cp_one >=0 and cp_one < 8 and cp_two >0 and cp_two < 9)
-    // moves.push_back(std::to_string(cp_one) + std::to_string(cp_two));
-
-    // // for horizontal > vertical movement
-    // cp_one = kbpo-2; cp_two = kbpt+1;
-    // if(cp_one >=0 and cp_one < 8 and cp_two >0 and cp_two < 9)   
-    //     moves.push_back(std::to_string(cp_one) + std::to_string(cp_two));
-
-    // cp_one = kbpo-2; cp_two = kbpt-1;
-    // if(cp_one >=0 and cp_one < 8 and cp_two >0 and cp_two < 9)
-    //     moves.push_back(std::to_string(cp_one) + std::to_string(cp_two));
-
-    // cp_one = kbpo+2; cp_two = kbpt+1;
-    // if(cp_one >=0 and cp_one < 8 and cp_two >0 and cp_two < 9)
-    //     moves.push_back(std::to_string(cp_one) + std::to_string(cp_two));
-
-    // cp_one = kbpo+2; cp_two = kbpt-1;
-    // if(cp_one >=0 and cp_one < 8 and cp_two >0 and cp_two < 9)
-    //     moves.push_back(std::to_string(cp_one) + std::to_string(cp_two));
-    
     // Convert the first value of the position into the letter as chess board shows
     // Ex: '08' > 'a8'
     std::string replace_charater_to_string;
@@ -107,11 +65,6 @@ std::vector<std::string> knight_moves(std::string knight){
 
     // Remove the un-conveted values from the array
     moves.erase(moves.begin()+0, moves.begin()+moves.size()/2);
-
-    // Print the position of knight can move 
-    // for(int n=0; n < moves.size();n++){
-    //     std::cout << moves[n] << std::endl;
-    // }
 
     return moves;
 }
