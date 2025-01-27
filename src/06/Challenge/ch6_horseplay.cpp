@@ -16,109 +16,104 @@
 //           knight: The knight's location.
 // Returns: An STL vector of strings with the possible locations to move.
 std::vector<std::string> knight_moves(std::string knight){
-    //std::vector<std::string> moves;
-    std::vector<std::string> board_pos;
-    char letter[8] = {'a','b','c','d','e','f','g','h'};
-    for(int i=8; i>0; i--){
-        for(int j=0; j<8; j++){
-            //std::cout << letter[j] << i << " ";
-            std::cout << j << i << " ";
-            board_pos.push_back(std::to_string(j) + std::to_string(i));
-            //board_pos.push_back(letter[j] + std::to_string(i));
+    std::vector<std::string> moves;
+    std::vector<std::string> cell_positions;
+    int cp_one,cp_two; // Use to get and convert the cell name
+    int kbpo, kbpt; // kbpo - knight begin position one | kbpo - knight begin position two
+
+    // Display chess board cell positions as a Matrix
+    char column_character[8] = {'a','b','c','d','e','f','g','h'};
+    for(int i=8; i > 0; i--){
+        for(int j=0; j < 8; j++){
+            //std::cout << j << i << " ";
+            cell_positions.push_back(std::to_string(j) + std::to_string(i));
         }
-        std::cout << std::endl;
+        //std::cout << std::endl;
     }
 
-    // for(int n=0; n<board_pos.size();n++){
-    //     std::cout << board_pos[n] << std::endl;
-    // }
+    // Get the knight current position and saved in two variables     
+    for(int i=0; i < 8; i++){
+        if(knight[0] == column_character[i]) kbpo = i;
+    }
+    kbpt = knight[1] - '0';
 
-    std::cout << "==========" << std::endl;
+    // if, vertical position movement > change the number | horizontal position movement > change the letter
+    // Define possible knight moves as a pattern of (row_offset, col_offset)
+    int move_pattern[8][2] = {
+        {-1,  2}, { 1,  2}, // Vertical > Horizontal
+        {-1, -2}, { 1, -2},
+        {-2,  1}, {-2, -1}, // Horizontal > Vertical
+        { 2,  1}, { 2, -1}
+    };
 
-    int e1, e2;
-    for(int k=0; k<8;k++){
-        if(knight[0] == letter[k]){
-            e1 = k;
-    }}
-    e2 = knight[1] - '0';
-    std::cout << "E1:" << knight[0] << "|" << e1 << " E2:" << knight[1] << "|" << e2 << std::endl;
-    // vertical = numbers
-    // horizontal = letter
+    for (int i = 0; i < 8; i++) {
+        int cp_one = kbpo + move_pattern[i][0]; // Apply row offset
+        int cp_two = kbpt + move_pattern[i][1]; // Apply column offset
+
+        // Check if the move is within bounds
+        if (cp_one >= 0 && cp_one < 8 && cp_two >= 0 && cp_two < 9) {
+            moves.push_back(std::to_string(cp_one) + std::to_string(cp_two));
+        }
+    }    
 
     // for vertical > horizontal movement
-    //knight = d5
-    int pos1,pos2;
-    std::string pos;
-    std::vector<std::string> new_move;
-    std::vector<std::string> available_move;
+    // cp_one = kbpo-1; cp_two = kbpt+2;
+    // if(cp_one >=0 and cp_one < 8 and cp_two >0 and cp_two < 9)
+    //     moves.push_back(std::to_string(cp_one) + std::to_string(cp_two));
 
-    // for vertical > horizontal movement
-    pos1 = e1-1; pos2 = e2+2;
-    if(pos1 >=0 and pos1 < 8 and pos2 >0 and pos2 < 9)
-        new_move.push_back(std::to_string(pos1) + std::to_string(pos2));
-    pos1 = e1+1; pos2 = e2+2;
-    if(pos1 >=0 and pos1 < 8 and pos2 >0 and pos2 < 9)
-        new_move.push_back(std::to_string(pos1) + std::to_string(pos2));
-    pos1 = e1-1; pos2 = e2-2;
-    if(pos1 >=0 and pos1 < 8 and pos2 >0 and pos2 < 9)  
-        new_move.push_back(std::to_string(pos1) + std::to_string(pos2));
-    pos1 = e1+1; pos2 = e2-2;
-    if(pos1 >=0 and pos1 < 8 and pos2 >0 and pos2 < 9)
-    new_move.push_back(std::to_string(pos1) + std::to_string(pos2));
+    // cp_one = kbpo+1; cp_two = kbpt+2;
+    // if(cp_one >=0 and cp_one < 8 and cp_two >0 and cp_two < 9)
+    //     moves.push_back(std::to_string(cp_one) + std::to_string(cp_two));
 
-    // for horizontal > vertical movement
-    pos1 = e1-2; pos2 = e2+1;
-    if(pos1 >=0 and pos1 < 8 and pos2 >0 and pos2 < 9)   
-        new_move.push_back(std::to_string(pos1) + std::to_string(pos2));
-    pos1 = e1-2; pos2 = e2-1;
-    if(pos1 >=0 and pos1 < 8 and pos2 >0 and pos2 < 9)
-        new_move.push_back(std::to_string(pos1) + std::to_string(pos2));
-    pos1 = e1+2; pos2 = e2+1;
-    if(pos1 >=0 and pos1 < 8 and pos2 >0 and pos2 < 9)
-        new_move.push_back(std::to_string(pos1) + std::to_string(pos2));
-    pos1 = e1+2; pos2 = e2-1;
-    if(pos1 >=0 and pos1 < 8 and pos2 >0 and pos2 < 9)
-        new_move.push_back(std::to_string(pos1) + std::to_string(pos2));
+    // cp_one = kbpo-1; cp_two = kbpt-2;
+    // if(cp_one >=0 and cp_one < 8 and cp_two >0 and cp_two < 9)  
+    //     moves.push_back(std::to_string(cp_one) + std::to_string(cp_two));
+
+    // cp_one = kbpo+1; cp_two = kbpt-2;
+    // if(cp_one >=0 and cp_one < 8 and cp_two >0 and cp_two < 9)
+    // moves.push_back(std::to_string(cp_one) + std::to_string(cp_two));
+
+    // // for horizontal > vertical movement
+    // cp_one = kbpo-2; cp_two = kbpt+1;
+    // if(cp_one >=0 and cp_one < 8 and cp_two >0 and cp_two < 9)   
+    //     moves.push_back(std::to_string(cp_one) + std::to_string(cp_two));
+
+    // cp_one = kbpo-2; cp_two = kbpt-1;
+    // if(cp_one >=0 and cp_one < 8 and cp_two >0 and cp_two < 9)
+    //     moves.push_back(std::to_string(cp_one) + std::to_string(cp_two));
+
+    // cp_one = kbpo+2; cp_two = kbpt+1;
+    // if(cp_one >=0 and cp_one < 8 and cp_two >0 and cp_two < 9)
+    //     moves.push_back(std::to_string(cp_one) + std::to_string(cp_two));
+
+    // cp_one = kbpo+2; cp_two = kbpt-1;
+    // if(cp_one >=0 and cp_one < 8 and cp_two >0 and cp_two < 9)
+    //     moves.push_back(std::to_string(cp_one) + std::to_string(cp_two));
     
-    std::cout << "==========" << std::endl;
-    std::string c_num;
-
-    for(int n=0; n<new_move.size();n++){
-        std::cout << new_move[n] << std::endl;
-        std::string temp_letter = new_move[n];
-        int c_letter = temp_letter[0]-'0';
-        std::cout << c_letter << typeid(c_letter).name() << std::endl;
-        for(int i=0; i<8;i++){
-            if(c_letter == i){
-                c_num = letter[i];
-                available_move.push_back(c_num + temp_letter[1]);
-                }
+    // Convert the first value of the position into the letter as chess board shows
+    // Ex: '08' > 'a8'
+    std::string replace_charater_to_string;
+    for(int i=0; i < moves.size(); i++){
+        // std::cout << moves[i] << std::endl;
+        std::string first_charater = moves[i];
+        //int first_numeric_value = first_charater[0]-'0';
+        for(int j=0; j < 8; j++){
+            if(first_charater[0]-'0' == j){
+                replace_charater_to_string = column_character[j];
+                moves.push_back(replace_charater_to_string + first_charater[1]);
+            }
         }
-
     }
 
-    std::cout << "==========" << std::endl;
+    // Remove the un-conveted values from the array
+    moves.erase(moves.begin()+0, moves.begin()+moves.size()/2);
 
-
-    // for(int n=0; n<new_move.size();n++){
-    //     //std::cout << board_pos[n] << std::endl;
-    //     for(int u=0; n<board_pos.size();u++){
-    //         if(new_move[n] == board_pos[u]){
-    //             available_move.push_back(new_move[n]);
-    //             break;
-    //         }
-
-    //     }
+    // Print the position of knight can move 
+    // for(int n=0; n < moves.size();n++){
+    //     std::cout << moves[n] << std::endl;
     // }
 
-    for(int n=0; n<available_move.size();n++){
-        std::cout << available_move[n] << std::endl;
-    }
-    
-
-    //std::string find_verti_hori = std::to_string(e1)+ 
-
-    return available_move;
+    return moves;
 }
 
 // Main function
