@@ -20,8 +20,8 @@
 // Main function
 int main(){
     // Create two complex numbers z and w
-    complex_num z(10.0,5.0); 
-    complex_num w(-2.0);
+    complex_num z(10.0,5.0);  // a + ib
+    complex_num w(-2.0);      // c + id
 
     // Print both complex numbers
     std::cout << "    z = ";
