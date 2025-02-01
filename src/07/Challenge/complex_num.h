@@ -5,7 +5,8 @@
 
 class complex_num{
     
-    // Write your code here
+    private:
+        double real , imaginary;
 
     public:
          complex_num(double = 0.0, double = 0.0);
