@@ -38,6 +38,8 @@ bool is_valid_ip(std::string ip){
         if(ip[i] == '\0') ip_list.push_back(ip.substr(prev,i-prev));
     }
 
+    if(ip_list.size() != 4) return false;
+
     for(int j=0; j<4; j++){
         if( (stoi(ip_list[j]) >=0) && (stoi(ip_list[j]) <=255) ) continue;
         else return false;
