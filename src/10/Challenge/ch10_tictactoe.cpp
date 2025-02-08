@@ -61,14 +61,13 @@ std::vector <char> letter_type;
 char game_state(char game[][3]){
     count++;
     if(count <= 9) return 'a';
-    else if(count==10){
+    else{
         for(int i=0;i<3;i++){
             for(int j=0;j<3;j++){
                 letter_type.push_back(game[i][j]);           
             }
         }
-    }
-    else if(count == 11){
+
         int winning_combinations[8][3] = {
             {0, 1, 2}, {6, 7, 8}, {0, 3, 6}, {2, 5, 8},
             {0, 4, 8}, {2, 4, 6}, {1, 4, 7}, {3, 4, 5}
@@ -79,8 +78,7 @@ char game_state(char game[][3]){
             if (combined == 'X') xcount++;
             else if (combined == 'O') ocount++;
         }
-    }
-    else{
+
         if(xcount == ocount) return 't';
         else if(xcount > ocount) return 'X';
         else return 'O';
