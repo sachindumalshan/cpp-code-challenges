@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 // ask_for_move()
 // Summary: This function asks the user to make a move.
@@ -33,16 +34,15 @@ void ask_for_move(char game[][3], char mark){
 //           game[3][3]: The state of the game.
 //           mark: The AI's mark: 'X' or 'O'.
 // Returns: Nothing.
-
-#define TWO_PLAYERS
 void make_move(char game[][3], char mark){ 
-    #ifdef TWO_PLAYERS
-    ask_for_move(game,mark);
-    #else
-    
-    // Write your code here and comment out the definition of TWO_PLAYERS above
-
-    #endif
+    int row, col;
+    do{
+        row = rand() % 3 + 1;
+        std::cout << "AI's mark (" << mark << ") in row: " << row << std::endl;
+        col = rand() % 3 + 1;
+        std::cout << "AI's mark (" << mark << ") in column: " << col << std::endl;        
+    }while(game[row-1][col-1]!=' ');
+    game[row-1][col-1] = mark;    
     return;
 }
 
@@ -55,11 +55,34 @@ void make_move(char game[][3], char mark){
 //                                  'X': X won.
 //                                  'O': O won.
 //                                  't': A tie.
+int count =0;
+int xcount=0, ocount=0;
+std::vector <char> letter_type;
 char game_state(char game[][3]){
+    count++;
+    if(count <= 9) return 'a';
+    else{
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                letter_type.push_back(game[i][j]);           
+            }
+        }
 
-    // Write your code here
+        int winning_combinations[8][3] = {
+            {0, 1, 2}, {6, 7, 8}, {0, 3, 6}, {2, 5, 8},
+            {0, 4, 8}, {2, 4, 6}, {1, 4, 7}, {3, 4, 5}
+        };
 
-    return 'a';
+        for (int i = 0; i < 8; i++) {
+            char combined = letter_type[winning_combinations[i][0]] & letter_type[winning_combinations[i][1]] & letter_type[winning_combinations[i][2]];
+            if (combined == 'X') xcount++;
+            else if (combined == 'O') ocount++;
+        }
+
+        if(xcount == ocount) return 't';
+        else if(xcount > ocount) return 'X';
+        else return 'O';
+    }
 }
 
 // print_game()
@@ -97,7 +120,7 @@ int main(){
     print_game(game);
 
     while(game_state(game)=='a'){
-        std::cout << turn << "'s turn...\n";    
+        std::cout << turn << "'s turn...\n";
         if(turn==user_mark)
             ask_for_move(game,user_mark);
         else
