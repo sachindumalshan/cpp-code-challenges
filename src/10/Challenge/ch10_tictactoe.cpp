@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 // ask_for_move()
 // Summary: This function asks the user to make a move.
@@ -55,11 +56,51 @@ void make_move(char game[][3], char mark){
 //                                  'X': X won.
 //                                  'O': O won.
 //                                  't': A tie.
+int count =0;
+int xcount=0, ocount=0;
+std::vector <char> letter_type;
 char game_state(char game[][3]){
+    count++;
+    if(count <= 9) return 'a';
+    else if(count==10){
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                letter_type.push_back(game[i][j]);            
+            }
+        }        
+        for(int i=0;i<letter_type.size();i++){
+                std::cout << letter_type[i] << " ";           
+            }
+    }
+    else if(count == 11){
+        // if((letter_type[0] & letter_type[1] & letter_type[2]) == 'X') xcount++;
+        // if((letter_type[0] & letter_type[1] & letter_type[2]) == 'O') ocount++;
+        // if((letter_type[6] & letter_type[7] & letter_type[8]) == 'X') xcount++;
+        // if((letter_type[6] & letter_type[7] & letter_type[8]) == 'O') ocount++;
 
-    // Write your code here
+        // if((letter_type[0] & letter_type[3] & letter_type[6]) == 'X') xcount++;
+        // if((letter_type[0] & letter_type[3] & letter_type[6]) == 'O') ocount++;
+        // if((letter_type[2] & letter_type[5] & letter_type[8]) == 'X') xcount++;
+        // if((letter_type[2] & letter_type[5] & letter_type[8]) == 'O') ocount++;
 
-    return 'a';
+        // if((letter_type[0] & letter_type[4] & letter_type[8]) == 'X') xcount++;
+        // if((letter_type[0] & letter_type[4] & letter_type[8]) == 'O') ocount++;
+        // if((letter_type[2] & letter_type[4] & letter_type[6]) == 'X') xcount++;
+        // if((letter_type[2] & letter_type[4] & letter_type[6]) == 'O') ocount++;
+
+        // if((letter_type[1] & letter_type[4] & letter_type[7]) == 'X') xcount++;
+        // if((letter_type[1] & letter_type[4] & letter_type[7]) == 'O') ocount++;
+        // if((letter_type[3] & letter_type[4] & letter_type[5]) == 'X') xcount++;
+        // if((letter_type[3] & letter_type[4] & letter_type[5]) == 'O') ocount++;
+        
+        std::cout << std::endl;
+        std::cout << xcount << " " << ocount << std::endl;
+    }
+    else{
+        if(xcount == ocount) return 't';
+        else if(xcount > ocount) return 'X';
+        else return 'O';
+    }
 }
 
 // print_game()
