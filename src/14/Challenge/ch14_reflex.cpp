@@ -29,7 +29,19 @@ int main(){
     std::getline(std::cin, try_again);
     do{
 
-        // Write your code here
+        int r_number = rand() % 10;
+        std::cout << "Random Word: " << words[r_number] << std::endl;
+
+        std::string input_word;
+        std::cout << "Enter the word: ";
+        std::cin >> input_word;
+        std::transform(input_word.begin(),input_word.end(),input_word.begin(),::toupper);
+        if(words[r_number] == input_word){
+            std::cout << "success" << std::endl;
+        }
+        else{
+            std::cout << "failure" << std::endl;
+        }
 
         std::cout << "Try again? (Y/N): " << std::flush;
         std::getline(std::cin, try_again);
