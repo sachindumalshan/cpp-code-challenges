@@ -26,13 +26,27 @@ int main(){
     std::cout << "            Press Enter when you're ready to start." << std::flush;
 
     std::string try_again;
-    std::getline(std::cin, try_again);
+    std::cout << '\n';
     do{
+        int r_number = rand() % 10;
+        std::cout << "Random Word: " << words[r_number] << std::endl;
+        std::string input_word;
 
-        // Write your code here
+        auto start = std::chrono::system_clock::now();
+        std::cout << "Enter the word: ";
+        std::cin >> input_word;
+        auto end = std::chrono::system_clock::now();
 
-        std::cout << "Try again? (Y/N): " << std::flush;
-        std::getline(std::cin, try_again);
+        auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(end - start);
+
+        std::transform(input_word.begin(),input_word.end(),input_word.begin(),::toupper);
+        if((words[r_number] == input_word) && elapsed.count() <= 2)
+            std::cout << "success" << std::endl;
+        else
+            std::cout << "failure" << std::endl;
+
+        std::cout << "Try again? (Y/N): ";
+        std::cin >> try_again;
     }while(try_again[0]=='Y' || try_again[0]=='y');
     return 0;
 }
