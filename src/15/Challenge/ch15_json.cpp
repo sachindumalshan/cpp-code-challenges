@@ -19,9 +19,8 @@
 //           filename: A string with the name of the file to open.
 // Returns: An integer enconding: 1 for valid JSON files, 0 for invalid, and -1 on failure to open file.
 
-std::stack <std::string> sentences;
-std::stack <char> signs;
-
+std::stack <std::string> sentences1,sentences2,sentences3;
+std::stack <char> curly,square,quate;
 
 int is_valid_JSON(std::string filename){
     std::string line;
@@ -33,38 +32,89 @@ int is_valid_JSON(std::string filename){
         while(!file.eof()){
             getline(file,line);
             //std::cout << line << std::endl;
-            sentences.push(line);
+            sentences1.push(line);
+            sentences2.push(line);
+            sentences3.push(line);
         }        
         file.close();
     }
     else
         return -1;
     
-    int cv = sentences.size();
+    int cv = sentences1.size();
     for(int i=0;i<cv;i++){
-        line = sentences.top();
-        sentences.pop();
+        line = sentences1.top();
+        sentences1.pop();
         for(int j=0; j<line.length();j++){
-            if(!signs.empty()){
-                // std::cout << signs.top() << std::endl;
-                char temp = signs.top();
+            if(!curly.empty()){
+                // std::cout << curly.top() << std::endl;
+                char temp = curly.top();
                 char temp2 = line[j];
                 if(temp == temp2){
-                    signs.push(temp2);
+                    curly.push(temp2);
                 }
-                else if(temp2 == '}' || temp2 == '{') signs.pop();
+                else if(temp2 == '}' || temp2 == '{') curly.pop();
                 else continue;
             }
             else{
                 if(line[j] == '}' || line[j] == '{')
-                    signs.push(line[j]);
+                    curly.push(line[j]);
             }
-        }        
+        }
     }
-    std::cout << signs.size() << std::endl;
-}
 
-//|| line[j] == '[' || line[j] == ']' || line[j] == '"'
+    std::cout << curly.size() << " ";
+
+    cv = sentences3.size();
+    for(int i=0;i<cv;i++){
+        line = sentences3.top();
+        sentences3.pop();
+        for(int j=0; j<line.length();j++){
+            if(!square.empty()){
+                // std::cout << square.top() << std::endl;
+                char temp = square.top();
+                char temp2 = line[j];
+                if(temp == temp2){
+                    square.push(temp2);
+                }
+                else if(temp2 == ']' || temp2 == '[') square.pop();
+                else continue;
+            }
+            else{
+                if(line[j] == ']' || line[j] == '[')
+                    square.push(line[j]);
+            }
+        } 
+    }
+
+    std::cout << square.size() << " ";
+
+    cv = sentences3.size();
+    for(int i=0;i<cv;i++){
+        line = sentences3.top();
+        sentences3.pop();
+        for(int j=0; j<line.length();j++){
+            if(!quate.empty()){
+                // std::cout << quate.top() << std::endl;
+                char temp = quate.top();
+                char temp2 = line[j];
+                if(temp == temp2){
+                    quate.push(temp2);
+                }
+                else if(temp2 == '"') quate.pop();
+                else continue;
+            }
+            else{
+                if(line[j] == '"')
+                    quate.push(line[j]);
+            }
+        } 
+    }
+    std::cout << quate.size() << std::endl;
+
+    if(curly.size() == 0 && square.size() == 0 && quate.size() == 0) return 1;
+    else return 0;
+}
 
 // JSON File Validation, main()
 int main(){
