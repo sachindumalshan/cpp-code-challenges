@@ -13,7 +13,9 @@
 // Summary: This application simulates the birthday problem a large number of times to reveal the probability of a birthday match in a groupd of a given number of people.
 int main(){    
     const int total = 1000000;
-    int n, matches;
+    int n, matches=0;
+    int b_dates[n];
+    bool match_found = false;
 
     std::cout << "Enter the number of people in the group: " << std::flush;
     std::cin >> n;
@@ -21,9 +23,26 @@ int main(){
     if(n > 366)
         matches = total;
     else{
-        // Write your code here
+        for(int i=0; i<total;i++){
+            for(int j=0; j<n; j++){
+                b_dates[j] = 1 + rand() % 367; 
+            }        
+        
+            for(int m=0; m<n; m++){
+                for(int k=m+1; k<n; k++){
+                    if(b_dates[m] == b_dates[k]){
+                        matches++;
+                        break;
+                    }
+                }
+                break;
+            }
+        }
     }
 
+    
+
+    std::cout << std::endl;
     std::cout << "The probability of a birthday match is " << (double)matches/total << "\n\n" << std::flush;  
 
     return 0;
